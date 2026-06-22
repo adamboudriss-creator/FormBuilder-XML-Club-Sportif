@@ -3,83 +3,146 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
     <xs:element name="formulaire">
+
         <xs:complexType>
+
             <xs:sequence>
 
-                <xs:element name="titre" type="xs:string"/>
+                <xs:element
+                    name="titre"
+                    type="xs:string"/>
 
-                <xs:element name="nom">
-                    <xs:simpleType>
-                        <xs:restriction base="xs:string">
-                            <xs:minLength value="3"/>
-                        </xs:restriction>
-                    </xs:simpleType>
-                </xs:element>
+                <!-- Les champs du formulaire peuvent apparaître
+                     dans n'importe quel ordre et plusieurs fois -->
+                <xs:choice
+                    minOccurs="0"
+                    maxOccurs="unbounded">
 
-                <xs:element name="prenom">
-                    <xs:simpleType>
-                        <xs:restriction base="xs:string">
-                            <xs:minLength value="3"/>
-                        </xs:restriction>
-                    </xs:simpleType>
-                </xs:element>
+                    <xs:element
+                        name="input"
+                        type="inputType"/>
 
-                <xs:element name="email" type="xs:string"/>
+                    <xs:element
+                        name="select"
+                        type="selectType"/>
 
-                <xs:element name="telephone">
-                    <xs:simpleType>
-                        <xs:restriction base="xs:string">
-                            <xs:pattern value="[0-9]{10}"/>
-                        </xs:restriction>
-                    </xs:simpleType>
-                </xs:element>
+                    <xs:element
+                        name="textarea"
+                        type="textareaType"/>
 
-                <xs:element name="age">
-                    <xs:simpleType>
-                        <xs:restriction base="xs:integer">
-                            <xs:minInclusive value="6"/>
-                        </xs:restriction>
-                    </xs:simpleType>
-                </xs:element>
+                    <xs:element
+                        name="checkbox"
+                        type="checkboxType"/>
 
-                <xs:element name="sexe">
-                    <xs:simpleType>
-                        <xs:restriction base="xs:string">
-                            <xs:enumeration value="Homme"/>
-                            <xs:enumeration value="Femme"/>
-                        </xs:restriction>
-                    </xs:simpleType>
-                </xs:element>
-
-                <xs:element name="sport">
-                    <xs:simpleType>
-                        <xs:restriction base="xs:string">
-                            <xs:enumeration value="Football"/>
-                            <xs:enumeration value="Basketball"/>
-                            <xs:enumeration value="Natation"/>
-                            <xs:enumeration value="Tennis"/>
-                        </xs:restriction>
-                    </xs:simpleType>
-                </xs:element>
-
-                <xs:element name="niveau">
-                    <xs:simpleType>
-                        <xs:restriction base="xs:string">
-                            <xs:enumeration value="Debutant"/>
-                            <xs:enumeration value="Intermediaire"/>
-                            <xs:enumeration value="Avance"/>
-                        </xs:restriction>
-                    </xs:simpleType>
-                </xs:element>
-
-                <xs:element name="adresse" type="xs:string"/>
-
-                <xs:element name="certificatMedical" type="xs:boolean"/>
-
-                <xs:element name="conditions" type="xs:boolean"/>
+                </xs:choice>
 
             </xs:sequence>
+
         </xs:complexType>
+
     </xs:element>
+
+    <!-- Types définis séparément pour plus de clarté et de réutilisabilité -->
+
+    <xs:complexType name="inputType">
+
+        <xs:attribute
+            name="name"
+            type="xs:string"
+            use="required"/>
+
+        <xs:attribute
+            name="label"
+            type="xs:string"
+            use="required"/>
+
+        <xs:attribute
+            name="type"
+            type="xs:string"
+            use="required"/>
+
+        <xs:attribute
+            name="required"
+            type="xs:boolean"
+            use="optional"
+            default="false"/>
+
+        <xs:attribute
+            name="minlength"
+            type="xs:positiveInteger"
+            use="optional"/>
+
+        <xs:attribute
+            name="pattern"
+            type="xs:string"
+            use="optional"/>
+
+    </xs:complexType>
+
+    <xs:complexType name="selectType">
+
+        <xs:sequence>
+
+            <xs:element
+                name="option"
+                type="xs:string"
+                minOccurs="1"
+                maxOccurs="unbounded"/>
+
+        </xs:sequence>
+
+        <xs:attribute
+            name="name"
+            type="xs:string"
+            use="required"/>
+
+        <xs:attribute
+            name="label"
+            type="xs:string"
+            use="required"/>
+
+    </xs:complexType>
+
+    <xs:complexType name="textareaType">
+
+        <xs:simpleContent>
+
+            <xs:extension base="xs:string">
+
+                <xs:attribute
+                    name="name"
+                    type="xs:string"
+                    use="required"/>
+
+                <xs:attribute
+                    name="label"
+                    type="xs:string"
+                    use="required"/>
+
+                <xs:attribute
+                    name="required"
+                    type="xs:boolean"
+                    use="optional"
+                    default="false"/>
+
+            </xs:extension>
+
+        </xs:simpleContent>
+
+    </xs:complexType>
+
+    <xs:complexType name="checkboxType">
+
+        <xs:attribute
+            name="name"
+            type="xs:string"
+            use="required"/>
+
+        <xs:attribute
+            name="label"
+            type="xs:string"
+            use="required"/>
+
+    </xs:complexType>
 
 </xs:schema>
