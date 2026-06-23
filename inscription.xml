@@ -8,7 +8,7 @@
 
     <input
         name="nom"
-        label="Nom"
+        label="Nomm"
         type="text"
         required="true"
         minlength="3"/>
