@@ -58,8 +58,11 @@
         <option>Intermediaire</option>
         <option>Avance</option>
 
+
+                
     </select>
 
+            
     <textarea
         name="adresse"
         label="Adresse"
@@ -71,6 +74,6 @@
 
     <checkbox
         name="conditions"
-        label="J'accepte les conditions"/>
+        label="J'accepte les  conditions"/>
 
 </formulaire>
